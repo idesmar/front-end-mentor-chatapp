@@ -1,11 +1,17 @@
 @use 'colors' as *;
 @use 'screens' as *;
+@use 'app-module';
+@use 'form-module';
+
+
 $dark: #1a1a1a;
 
 body {
 	background-color: $dark;
 	font-family: 'Rubik', sans-serif;
 	box-sizing: border-box;
+	display: flex;
+	justify-content: center;
 }
 
 *, *::before, *::after {
@@ -14,35 +20,103 @@ body {
 	padding: 0;
 }
 // 246 app
+.primary-container {
+	border: 1px solid green;
+	width: $ideal-web;
+	position: relative;
+	overflow: hidden;	
 
+}
 
-.flex-container {
-	margin-left: 25.277777vw; // 364px;
-	margin-right: 17.708333vw; // 255px;
-	padding-top: 149px;
-	padding-bottom: 149px;
-
+.sub-container {
+	border: 1px solid white;
+	margin-left: 363px; // 25.277777vw; // 
+	margin-right: 265.8px; // 17.708333vw;
+	padding-top: 148px;
+	padding-bottom: 147px;
+	
 	// ? 248px nearest to 250px
 	display: flex;
 	flex-direction: row-reverse;
 	align-items: center;
+	justify-content: center;
+
+	@media (max-width: $web-1) {
+		flex-direction: column-reverse;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	@media (max-width: $mobile) {
+		padding: 64px 0 70px 0;
+	}
+	
+
+	&::before {
+		content: '';
+		width: 510px;
+		height: 700px;
+		position: absolute;
+		background-image: linear-gradient(90deg, $gradient-bg);
+		top: 0;
+		left: -89px;
+		z-index: -1;
+		border-radius: 0 0 500px 500px;
+
+		@media (max-width: $mobile) {
+			top: -189px;
+			left: unset;
+			right: 50%;
+		}
+	}
+
+	&::after {
+		content: '';
+		width: 500px;
+		height: 700px;
+		position: absolute;
+		background-color: $right-bg;
+		bottom: 0;
+		right: -184px;
+		z-index: -1;
+		border-radius: 500px 500px 0 0;
+
+		@media (max-width: $mobile) {
+			bottom: 0;
+			right: unset;
+			left: 50%;
+		}
+	}
 
 }
 
 
 .main-section {
-	padding-left: 125px;
-	// flex-basis: 45ch;f
+	// flex-basis: 45ch;
 	// flex-basis: 450px;
-	width: 450px;
-	box-sizing: content-box;
-	margin-right: auto;
+	width: 438.2px;
+	
+	@media (max-width: $web-1) {
+		text-align: center;
+		padding: 0 35px;
+	}
+
+	@media (max-width: $mobile) {
+		width: 100%;
+	}
+
 	
 	h1 {
 		color: $main-heading;
 		font-size: 2.5rem;
 		font-weight: 500;
 		margin-bottom: 22px;
+
+		@media (max-width: $web-1) {
+			margin: unset;
+			margin-top: 70.96px;
+			margin-bottom: 33.2px;
+		}
 	}
 	
 	p {
@@ -51,348 +125,6 @@ body {
 	}
 
 }
-
-
-
-// chat:font-color and padding
-// received: bg-color, max-width
-// chat-in/out: margin-bottom, position
-
-// put a chat when you hover on submit?
-
-// $outer-border: 27px;
-// $padding: 9.5px;
-
-
-// .app {
-// 	width: 246px;
-// 	padding: 9px;
-// 	border-radius: 27px;
-// 	background-color: $white;
-// 	// thick border creating an unexpected line
-// }
-
-// ? line created when using an empty div for styling
-// * solved after using a ::before pseudo element
-
-.app-inner {
-	width: 100%;
-	flex-shrink: 0;
-	// border-radius: 19.5px;
-	overflow: hidden;
-	background-color: $app-inner-bg;
-	line-height: 1.4;
-
-	max-width: 246px;
-	border: 9px solid $white;
-	border-radius: 27px;
-}
-
-
-
-
-
-.app-header {
-	position: relative;
-	background-image: linear-gradient(90deg, $gradient-bg);
-	background-color: rgba (0, 0, 50, 0.5);
-	display: flex;
-	justify-content: center;
-	border-radius: 0 0 5px 5px;
-	color: $white;
-	
-	.user {
-		display: flex;
-		align-items: center;
-		margin-top: 15px;
-		padding: 12px 14px;
-		width: 100%;
-		
-		&::after { // ? notch
-			content:'';
-			position: absolute;
-			top: 0;
-			left: 50%;
-			transform: translateX(-50%);
-			background-color: $white;
-			width: 130px;
-			height: 18px;
-			border-radius: 0 0 14px 14px;
-
-		}
-
-		.user-icon {
-			fill: $white;
-			
-			&--phone {
-				transform: rotate(45deg);
-			}
-			
-			&--dots {
-				margin-left: auto;
-			}
-		}
-
-		.user-photo {
-			$diam: 24px;
-			width: $diam;
-			height: $diam;
-			margin-left: 4px;
-			border: 1px solid $white;
-			border-radius: 50%;
-		}
-
-		.user-info {
-			margin-left: 8px;
-
-			&--name {
-				font-size: 11px;
-				font-weight: 700;
-			}
-
-			&--status {
-				color: $app-sub-heading;
-				font-size: 8px;
-				font-weight: 400;
-			}
-		}
-	}
-}
-
-
-.app-chat {
-	font-size: 8px;
-	font-weight: 400;
-	padding: 3px 0;
-}
-
-
-.chat-container {
-	display: flow-root;
-	padding: 8px; // padding-top: 11px;
-	padding-bottom: 0;
-
-
-	.chat-images-right {
-		float: right;
-		// border: 1px solid red;
-
-		img {
-			width: 40px;
-			border-radius: 8px;
-			margin-left: 6px;
-			margin-bottom: 5px;
-		}
-	}
-
-	&:nth-child(3) {
-		.chat:last-child {
-			margin-bottom: 0;
-		}
-	}
-
-
-	.chat {
-		padding: 6px 8px;
-		max-width: 128px;
-		margin-bottom: 8px;
-		border-radius: 10px;
-		clear: both;
-
-		&--left {
-			float: left;
-			color: $chat-left-text;
-			background-color: $chat-left-bg;
-			border-bottom-left-radius: 4px;
-		}
-
-		&--right {
-			float: right;
-			color: $chat-right-text;
-			background-color: $white;
-			border-bottom-right-radius: 4px;
-		}
-	}
-}
-
-
-
-
-// ? renaming to make the form simpler might be better
-.form.chat-container {
-	font-size: 8px;
-	color: $white;
-
-	.chat.chat--left {
-		padding: 8px;
-		padding-bottom: 7px;
-		color: inherit;
-		max-width: unset;
-		width: 160px; // ? 160px needed
-		background-image: linear-gradient(270deg, $gradient-bg);
-		display: flex;
-		align-items: center;
-
-		&:hover {
-			cursor: pointer;
-		}
-	}
-}
-
-
-
-form {
-
-	.form-bottom {
-		// max-width: unset;
-		background-color: $white;
-		display: flex;
-		margin: 8px;
-		padding: 5px 4px;
-		border-radius: 1000vw;
-		overflow: hidden;
-
-		&:focus-within {
-			box-shadow: inset 0 0 1px 1px $submit-btn-bg;
-		}
-	}
-
-	.btn, .text {
-		border: none;
-		outline: none;
-		width: 100%;
-	}
-
-	.btn {
-		$diam: 24px;
-		max-width: $diam;
-		height: $diam;
-		border-radius: 50%;
-		background-color: $submit-btn-bg;
-		fill: $white;
-
-		display: flex;
-		justify-content: center;
-		align-items: center;
-
-		&:hover, &:focus {
-			cursor: pointer;
-			transform: scale(1.05);
-			box-shadow: inset 0 0 1px 1px $gradient-1;
-		}
-	}
-
-	.text {
-		font-size: inherit;
-		font-family: inherit;
-		color: $chat-right-text;
-		padding-left: 12px;
-		padding-top: 4px;
-		border-radius: 1000vh;
-
-		&::placeholder {
-			color: $placeholder-text;
-			font-family: inherit;
-			font-size: 9px;
-		}
-		&:focus {
-			outline: none;
-		}
-	}
-}
-
-
-
-.radio {
-
-	&__info {
-		margin-left: 8px;
-		display: flex;
-		align-items: center;
-		width: 100%;
-	
-		
-		&--amt {
-			display: block;
-			margin-left: auto;
-			margin-right: 8px;
-			font-size: 12px;
-			font-weight: 700;
-		}
-	}
-
-	&:focus-within, &:hover {
-		transform: scale(1.05);
-		background-color: $gradient-1;
-	}
-
-	&__btn {
-		position: relative;
-		
-		&--old:checked + &--new {
-			background-color: $submit-btn-bg;
-		}
-
-		&--old:focus + &--new,
-		&--old:hover + &--new {
-			box-shadow: inset 0 0 1px 1px $white;
-		}
-
-		&--new {
-			display: block;
-			$diam: 1.5em; // ? check dimension
-			width: $diam;
-			height: $diam;
-			border-radius: 50%;
-			background-color: transparent;
-			border: 1px solid $radio-btn-outline;
-		}
-	
-		&--old {
-			opacity: 0;
-			$diam: 1px;
-			width: $diam;
-			height: $diam;
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%);
-			
-			&:focus, &:hover {
-				border: none;
-				outline: none;
-				cursor: pointer;
-			}
-		}
-	}
-}
-
-
-
-.big-left, .big-right {
-	// height 700px
-	// width 500px
-		width: 500px;
-		height: 700px;
-		position: absolute;
-}
-
-.big-left {
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
